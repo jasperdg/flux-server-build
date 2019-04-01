@@ -1,0 +1,38 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon --exec babel-node ./src/bin/www",
+    "build": "babel src --out-dir build",
+    "serve": "node dist/server.js"
+  },
+  "dependencies": {
+    "0x.js": "^6.0.3",
+    "augur.js": "^6.5.1",
+    "babel-polyfill": "^6.26.0",
+    "bcrypt": "^3.0.5",
+    "big-number": "^2.0.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ethereumjs-tx": "^1.3.7",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.4.16",
+    "mongoose-bignumber": "^1.1.0",
+    "morgan": "~1.9.0",
+    "web3": "^1.0.0-beta.46",
+    "web3-utils": "^1.0.0-beta.46"
+  },
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.2"
+  }
+}
