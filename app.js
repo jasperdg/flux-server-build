@@ -18,7 +18,9 @@ var _marketRoutes = _interopRequireDefault(require("./routes/marketRoutes/"));
 
 var _categoryRoutes = _interopRequireDefault(require("./routes/categoryRoutes/"));
 
-var _userRoutes = _interopRequireDefault(require("./routes/userRoutes"));
+var _userRoutes = _interopRequireDefault(require("./routes/userRoutes/"));
+
+var _companyRoutes = _interopRequireDefault(require("./routes/companyRoutes/"));
 
 var _middleware = _interopRequireDefault(require("./private/middleware/middleware"));
 
@@ -57,5 +59,6 @@ app.use('/', _index.default);
 app.use('/orders', _middleware.default, _orderRoutes.default);
 app.use('/markets', _middleware.default, _marketRoutes.default);
 app.use('/categories', _middleware.default, _categoryRoutes.default);
+app.use('/companies', _middleware.default, _companyRoutes.default);
 app.use('/user', _userRoutes.default);
 module.exports = app;

@@ -38,7 +38,7 @@ var auth = function auth(req) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!accessToken) {
-                _context.next = 19;
+                _context.next = 20;
                 break;
               }
 
@@ -51,7 +51,7 @@ var auth = function auth(req) {
               matchingAccessToken = _ref2.matchingAccessToken;
 
               if (!isValid) {
-                _context.next = 16;
+                _context.next = 17;
                 break;
               }
 
@@ -70,21 +70,22 @@ var auth = function auth(req) {
                 ip: ip
               });
               userInstance[0].save();
+              console.log('doing this');
               resolve(token);
-              _context.next = 17;
+              _context.next = 18;
               break;
-
-            case 16:
-              resolve(false);
 
             case 17:
-              _context.next = 20;
-              break;
-
-            case 19:
               resolve(false);
 
+            case 18:
+              _context.next = 21;
+              break;
+
             case 20:
+              resolve(false);
+
+            case 21:
             case "end":
               return _context.stop();
           }

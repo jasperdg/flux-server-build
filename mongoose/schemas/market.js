@@ -16,7 +16,11 @@ var marketSchema = new Schema({
     category: String,
     endTime: Number,
     // TODO: Make this the formatted date
-    extraInfo: String
+    extraInfo: String,
+    subCategory: {
+      type: String,
+      ref: "companies"
+    }
   },
   _id: String,
   volume: Number,

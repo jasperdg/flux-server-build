@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
-var _market = _interopRequireDefault(require("../../mongoose/schemas/market"));
+var _company = _interopRequireDefault(require("../../mongoose/schemas/company"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15,44 +15,32 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var Markets = _mongoose.default.model('markets', _market.default);
+var Market = _mongoose.default.model('companies', _company.default);
 
-var getMarkets = function getMarkets(req) {
+var addCompany = function addCompany(req) {
   return new Promise(
   /*#__PURE__*/
   function () {
     var _ref = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee(resolve, reject) {
-      var markets;
+      var marketInstance;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (!req.body.query) {
-                _context.next = 6;
-                break;
-              }
-
+              marketInstance = new Market({
+                iconImg: "we-company-logo.png",
+                name: "We Company",
+                description: "Shared office provider and real-estate company"
+              });
               _context.next = 3;
-              return Markets.find(req.body.query).populate('info.subCategory').exec();
+              return marketInstance.save();
 
             case 3:
-              markets = _context.sent;
-              _context.next = 9;
-              break;
+              resolve(marketInstance);
 
-            case 6:
-              _context.next = 8;
-              return Markets.find({});
-
-            case 8:
-              markets = _context.sent;
-
-            case 9:
-              resolve(markets);
-
-            case 10:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -66,5 +54,5 @@ var getMarkets = function getMarkets(req) {
   }());
 };
 
-var _default = getMarkets;
+var _default = addCompany;
 exports.default = _default;
