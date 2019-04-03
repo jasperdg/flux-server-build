@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.RINKEBY_CONTRACTS = exports.NODES = exports.MARKET = exports.NUM_TICKS = exports.WRAPPED_NO_TOKEN = exports.WRAPPED_YES_TOKEN = exports.PROXY_ADDRESS_RINKEBY = exports.FETH_ADDRESS_RINKEBY = exports.BROKER_ADDRESS_RINKEBY = exports.PROXY_ADDRESS_ROPSTEN = exports.FETH_ADDRESS_ROPSTEN = exports.BROKER_ADDRESS_ROPSTEN = exports.ZERO = exports.NULL_ADDRESS = void 0;
+exports.RINKEBY_CONTRACTS = exports.NODES = exports.BASE_DERIVATION_PATH = exports.RINKEBY_CONFIGS = exports.MARKET = exports.NUM_TICKS = exports.WRAPPED_NO_TOKEN = exports.WRAPPED_YES_TOKEN = exports.PROXY_ADDRESS_RINKEBY = exports.FETH_ADDRESS_RINKEBY = exports.BROKER_ADDRESS_RINKEBY = exports.PROXY_ADDRESS_ROPSTEN = exports.FETH_ADDRESS_ROPSTEN = exports.BROKER_ADDRESS_ROPSTEN = exports.ZERO = exports.NULL_ADDRESS = void 0;
 
 var _web3Utils = require("web3-utils");
 
@@ -34,6 +34,13 @@ var NUM_TICKS = 10000;
 exports.NUM_TICKS = NUM_TICKS;
 var MARKET = "0x42db58a60d582aa881fe0c36f50919a1e927adc6";
 exports.MARKET = MARKET;
+var RINKEBY_CONFIGS = {
+  rpcUrl: 'https://rinkeby.infura.io/',
+  networkId: 4
+};
+exports.RINKEBY_CONFIGS = RINKEBY_CONFIGS;
+var BASE_DERIVATION_PATH = "44'/60'/0'/0";
+exports.BASE_DERIVATION_PATH = BASE_DERIVATION_PATH;
 var NODES = {
   HTTP_ETH_RINKEBY: "https://rinkeby.augur.net/ethereum-http",
   WSS_ETH_RINKEBY: "wss://rinkeby.augur.net/ethereum-ws",

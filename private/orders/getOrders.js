@@ -3,17 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getMarketOrder = exports.getOrders = void 0;
+exports.getOrderBookOrders = exports.getMarketOrder = exports.getOrders = void 0;
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
 var _order = _interopRequireDefault(require("../../mongoose/schemas/order"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -63,22 +59,42 @@ var getMarketOrder = function getMarketOrder(req) {
     var _ref2 = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee2(resolve, reject) {
-      var query, marketOrder;
+      var _req$body$query, type, outcome, oposingOutcome, marketOrder;
+
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              query = _objectSpread({}, req.body.query, {
-                "filled": 0
-              });
-              _context2.next = 3;
-              return Orders.findOne(query).sort("inversePrice").exec();
+              _req$body$query = req.body.query, type = _req$body$query.type, outcome = _req$body$query.outcome;
+              oposingOutcome = outcome === 0 ? 1 : 0;
 
-            case 3:
-              marketOrder = _context2.sent;
-              resolve(marketOrder);
+              if (type === 'buy') {
+                marketOrder = Orders.findOne({
+                  $or: [{
+                    outcome: oposingOutcome,
+                    type: 'buy',
+                    filled: 0
+                  }, {
+                    outcome: outcome,
+                    type: 'sell',
+                    filled: 0
+                  }]
+                });
+              } else {
+                marketOrder = Orders.findOne({
+                  outcome: outcome,
+                  type: 'buy',
+                  filled: 0
+                });
+              }
+
+              _context2.next = 5;
+              return marketOrder.sort("inversePrice").exec();
 
             case 5:
+              resolve(marketOrder);
+
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -93,3 +109,53 @@ var getMarketOrder = function getMarketOrder(req) {
 };
 
 exports.getMarketOrder = getMarketOrder;
+
+var getOrderBookOrders = function getOrderBookOrders(req) {
+  return new Promise(
+  /*#__PURE__*/
+  function () {
+    var _ref3 = _asyncToGenerator(
+    /*#__PURE__*/
+    regeneratorRuntime.mark(function _callee3(resolve, reject) {
+      var _req$body$query2, outcome, market, oposingOutcome, marketOrder;
+
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _req$body$query2 = req.body.query, outcome = _req$body$query2.outcome, market = _req$body$query2.market;
+              oposingOutcome = outcome === 0 ? 1 : 0;
+              _context3.next = 4;
+              return Orders.find({
+                $or: [{
+                  market: market,
+                  outcome: outcome,
+                  type: 'buy',
+                  filled: 0
+                }, {
+                  market: market,
+                  outcome: oposingOutcome,
+                  type: 'sell',
+                  filled: 0
+                }]
+              }).sort("inversePrice").exec();
+
+            case 4:
+              marketOrder = _context3.sent;
+              resolve(marketOrder);
+
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function (_x5, _x6) {
+      return _ref3.apply(this, arguments);
+    };
+  }());
+};
+
+exports.getOrderBookOrders = getOrderBookOrders;

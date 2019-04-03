@@ -31,8 +31,10 @@ var orderSchema = new Schema({
     type: String,
     ref: 'markets'
   },
+  type: String,
   outcome: Number,
   outcomeToken: String,
+  matchingOutcome: Number,
   signature: String,
   pricePerShare: Number,
   inversePrice: Number,

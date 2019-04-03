@@ -88,7 +88,7 @@ var getOrderPriceAvg = function getOrderPriceAvg(req) {
 
               timesAddedInsteadOfPushed = 0;
               orders.forEach(function (order, index) {
-                var hour = order._id.hour + 1;
+                var hour = order._id.hour + 2;
                 var outcome = order._id.outcome;
                 var exists = !!hourBeenAddedStorage[hour];
 
