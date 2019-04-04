@@ -59,7 +59,7 @@ var placeOrder = function placeOrder(req) {
               _req$body = req.body, order = _req$body.order, signature = _req$body.signature, market = _req$body.market, outcome = _req$body.outcome, outcomeToken = _req$body.outcomeToken, type = _req$body.type;
 
               if (!(order && signature && market && (0, _orderUtils.isValidOutcome)(outcome))) {
-                _context.next = 66;
+                _context.next = 63;
                 break;
               }
 
@@ -127,39 +127,36 @@ var placeOrder = function placeOrder(req) {
 
             case 15:
               matchingOrders = matchingSellOrders.concat(matchingBuyOrders);
-              console.log(order, matchingOrders);
 
               if (!(matchingOrders.length > 0)) {
-                _context.next = 62;
+                _context.next = 59;
                 break;
               }
 
               matchedOrder = matchingOrders[0];
 
               if (!(matchedOrder.type === "sell" || type === "sell")) {
-                _context.next = 40;
+                _context.next = 37;
                 break;
               }
 
-              _context.next = 22;
+              _context.next = 21;
               return contractWrappers.exchange.matchOrdersAsync(_objectSpread({}, order, {
                 signature: signature
               }), _objectSpread({}, matchedOrder.order, {
                 signature: matchedOrder.signature
               }), _pvt.ADDRESS);
 
-            case 22:
+            case 21:
               tx = _context.sent;
-              console.log("tx:", tx);
-              _context.next = 26;
+              _context.next = 24;
               return (0, _awaitTransactionMinedAsync.default)(tx);
 
-            case 26:
+            case 24:
               receipt = _context.sent;
-              console.log("receipt:", receipt);
 
               if (!(receipt.status === "0x1" || receipt.status === true)) {
-                _context.next = 37;
+                _context.next = 34;
                 break;
               }
 
@@ -176,30 +173,30 @@ var placeOrder = function placeOrder(req) {
                 newOrderInstance.shareAmountLeft = 0;
               }
 
-              _context.next = 32;
+              _context.next = 29;
               return matchedOrder.save();
 
-            case 32:
-              _context.next = 34;
+            case 29:
+              _context.next = 31;
               return newOrderInstance.save();
 
-            case 34:
+            case 31:
               resolve({
                 filled: "Transaction success"
               });
-              _context.next = 38;
+              _context.next = 35;
               break;
 
-            case 37:
+            case 34:
               resolve({
                 error: "tx failed"
               });
 
-            case 38:
-              _context.next = 60;
+            case 35:
+              _context.next = 57;
               break;
 
-            case 40:
+            case 37:
               // If none of the orders are sell orders new shares have to be minted by sending the orders to the matching engine.
               // It's important that the indexes of the orders, wrapped tokens and the signatures match one another.
               // Also Broker contract expects the orders to be indexed by outcome in the order: No, Yes. So outcomes would be [0, 1].
@@ -207,19 +204,19 @@ var placeOrder = function placeOrder(req) {
               orders = orderedBrokerData.orders, outcomeTokens = orderedBrokerData.outcomeTokens, signatures = orderedBrokerData.signatures;
               smallestOrder = (0, _orderUtils.getSmallestOrder)(newOrderInstance, matchedOrder);
               totalFillAmount = smallestOrder.shareAmountLeft * _constants.NUM_TICKS * smallestOrder.pricePerShare * (1 / smallestOrder.pricePerShare);
-              _context.next = 46;
+              _context.next = 43;
               return broker.buyShares(market._id, outcomeTokens, orders, signatures, totalFillAmount);
 
-            case 46:
+            case 43:
               res = _context.sent;
-              _context.next = 49;
+              _context.next = 46;
               return (0, _awaitTransactionMinedAsync.default)(res);
 
-            case 49:
+            case 46:
               _receipt = _context.sent;
 
               if (!(_receipt.status === true || _receipt.status === "0x1")) {
-                _context.next = 59;
+                _context.next = 56;
                 break;
               }
 
@@ -236,30 +233,30 @@ var placeOrder = function placeOrder(req) {
                 newOrderInstance.shareAmountLeft = 0;
               }
 
-              _context.next = 54;
+              _context.next = 51;
               return matchedOrder.save();
 
-            case 54:
-              _context.next = 56;
+            case 51:
+              _context.next = 53;
               return newOrderInstance.save();
 
-            case 56:
+            case 53:
               resolve({
                 filled: "Transaction success"
               });
-              _context.next = 60;
+              _context.next = 57;
               break;
 
-            case 59:
+            case 56:
               resolve({
                 error: "tx failed"
               });
 
-            case 60:
-              _context.next = 64;
+            case 57:
+              _context.next = 61;
               break;
 
-            case 62:
+            case 59:
               newOrderInstance.save(function (err) {
                 if (err) throw err;
               });
@@ -267,16 +264,16 @@ var placeOrder = function placeOrder(req) {
                 msg: "order added to orderbooks"
               });
 
-            case 64:
-              _context.next = 67;
+            case 61:
+              _context.next = 64;
               break;
 
-            case 66:
+            case 63:
               resolve({
                 error: "no order provided"
               });
 
-            case 67:
+            case 64:
             case "end":
               return _context.stop();
           }

@@ -29,7 +29,8 @@ var awaitTransactionMinedAsync = function awaitTransactionMinedAsync(txHash) {
             case 0:
               interval = setInterval(function () {
                 web3.eth.getTransactionReceipt(txHash, function (err, receipt) {
-                  if (err) reject(err); // console.log("waiting till tx is mined...");
+                  if (err) reject(err);
+                  console.log("waiting till tx is mined...");
 
                   if (receipt !== null) {
                     console.log('resolving');
