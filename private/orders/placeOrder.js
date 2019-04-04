@@ -59,7 +59,7 @@ var placeOrder = function placeOrder(req) {
               _req$body = req.body, order = _req$body.order, signature = _req$body.signature, market = _req$body.market, outcome = _req$body.outcome, outcomeToken = _req$body.outcomeToken, type = _req$body.type;
 
               if (!(order && signature && market && (0, _orderUtils.isValidOutcome)(outcome))) {
-                _context.next = 68;
+                _context.next = 66;
                 break;
               }
 
@@ -130,7 +130,7 @@ var placeOrder = function placeOrder(req) {
               console.log(order, matchingOrders);
 
               if (!(matchingOrders.length > 0)) {
-                _context.next = 64;
+                _context.next = 62;
                 break;
               }
 
@@ -158,7 +158,7 @@ var placeOrder = function placeOrder(req) {
               receipt = _context.sent;
               console.log("receipt:", receipt);
 
-              if (!(receipt.status === "0x1")) {
+              if (!(receipt.status === "0x1" || receipt.status === true)) {
                 _context.next = 37;
                 break;
               }
@@ -196,7 +196,7 @@ var placeOrder = function placeOrder(req) {
               });
 
             case 38:
-              _context.next = 62;
+              _context.next = 60;
               break;
 
             case 40:
@@ -212,16 +212,14 @@ var placeOrder = function placeOrder(req) {
 
             case 46:
               res = _context.sent;
-              console.log("tx:", res);
-              _context.next = 50;
+              _context.next = 49;
               return (0, _awaitTransactionMinedAsync.default)(res);
 
-            case 50:
+            case 49:
               _receipt = _context.sent;
-              console.log("receipt:", _receipt);
 
-              if (!(_receipt.status === "0x1")) {
-                _context.next = 61;
+              if (!(_receipt.status === true || _receipt.status === "0x1")) {
+                _context.next = 59;
                 break;
               }
 
@@ -238,30 +236,30 @@ var placeOrder = function placeOrder(req) {
                 newOrderInstance.shareAmountLeft = 0;
               }
 
-              _context.next = 56;
+              _context.next = 54;
               return matchedOrder.save();
 
-            case 56:
-              _context.next = 58;
+            case 54:
+              _context.next = 56;
               return newOrderInstance.save();
 
-            case 58:
+            case 56:
               resolve({
                 filled: "Transaction success"
               });
-              _context.next = 62;
+              _context.next = 60;
               break;
 
-            case 61:
+            case 59:
               resolve({
                 error: "tx failed"
               });
 
-            case 62:
-              _context.next = 66;
+            case 60:
+              _context.next = 64;
               break;
 
-            case 64:
+            case 62:
               newOrderInstance.save(function (err) {
                 if (err) throw err;
               });
@@ -269,16 +267,16 @@ var placeOrder = function placeOrder(req) {
                 msg: "order added to orderbooks"
               });
 
-            case 66:
-              _context.next = 69;
+            case 64:
+              _context.next = 67;
               break;
 
-            case 68:
+            case 66:
               resolve({
                 error: "no order provided"
               });
 
-            case 69:
+            case 67:
             case "end":
               return _context.stop();
           }
