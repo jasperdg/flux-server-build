@@ -150,7 +150,7 @@ var placeOrder = function placeOrder(req) {
 
             case 22:
               tx = _context.sent;
-              console.log("tx:", receipt);
+              console.log("tx:", tx);
               _context.next = 26;
               return (0, _awaitTransactionMinedAsync.default)(tx);
 
