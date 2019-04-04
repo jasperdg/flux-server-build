@@ -59,7 +59,7 @@ var placeOrder = function placeOrder(req) {
               _req$body = req.body, order = _req$body.order, signature = _req$body.signature, market = _req$body.market, outcome = _req$body.outcome, outcomeToken = _req$body.outcomeToken, type = _req$body.type;
 
               if (!(order && signature && market && (0, _orderUtils.isValidOutcome)(outcome))) {
-                _context.next = 66;
+                _context.next = 68;
                 break;
               }
 
@@ -130,7 +130,7 @@ var placeOrder = function placeOrder(req) {
               console.log(order, matchingOrders);
 
               if (!(matchingOrders.length > 0)) {
-                _context.next = 62;
+                _context.next = 64;
                 break;
               }
 
@@ -196,7 +196,7 @@ var placeOrder = function placeOrder(req) {
               });
 
             case 38:
-              _context.next = 60;
+              _context.next = 62;
               break;
 
             case 40:
@@ -212,14 +212,16 @@ var placeOrder = function placeOrder(req) {
 
             case 46:
               res = _context.sent;
-              _context.next = 49;
+              console.log("tx:", res);
+              _context.next = 50;
               return (0, _awaitTransactionMinedAsync.default)(res);
 
-            case 49:
+            case 50:
               _receipt = _context.sent;
+              console.log("receipt:", _receipt);
 
               if (!(_receipt.status === "0x1")) {
-                _context.next = 59;
+                _context.next = 61;
                 break;
               }
 
@@ -236,30 +238,30 @@ var placeOrder = function placeOrder(req) {
                 newOrderInstance.shareAmountLeft = 0;
               }
 
-              _context.next = 54;
+              _context.next = 56;
               return matchedOrder.save();
 
-            case 54:
-              _context.next = 56;
+            case 56:
+              _context.next = 58;
               return newOrderInstance.save();
 
-            case 56:
+            case 58:
               resolve({
                 filled: "Transaction success"
               });
-              _context.next = 60;
+              _context.next = 62;
               break;
 
-            case 59:
+            case 61:
               resolve({
                 error: "tx failed"
               });
 
-            case 60:
-              _context.next = 64;
+            case 62:
+              _context.next = 66;
               break;
 
-            case 62:
+            case 64:
               newOrderInstance.save(function (err) {
                 if (err) throw err;
               });
@@ -267,16 +269,16 @@ var placeOrder = function placeOrder(req) {
                 msg: "order added to orderbooks"
               });
 
-            case 64:
-              _context.next = 67;
+            case 66:
+              _context.next = 69;
               break;
 
-            case 66:
+            case 68:
               resolve({
                 error: "no order provided"
               });
 
-            case 67:
+            case 69:
             case "end":
               return _context.stop();
           }
