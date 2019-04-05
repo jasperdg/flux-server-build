@@ -26,31 +26,46 @@ var addUser = function addUser() {
     var _ref = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee(resolve, reject) {
-      var userInstance, userInstanceTwo;
+      var users;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              userInstance = new User({
-                name: "Peter Mitchell",
-                accessToken: "pRQqeyFfgUN2vxKdxzqp"
+              users = [{
+                accessToken: "cNOmF0ywaFgVx1tNe00V",
+                name: "ScalarVC"
+              }, {
+                accessToken: "rY4kqCXW15VWlLnJGn61",
+                name: "Fabric VC"
+              }, {
+                accessToken: "Uac5y79XRmkVRfjqCs8I",
+                name: "Cherry VC"
+              }, {
+                accessToken: "byhiJizHXIQYgOY79V3i",
+                name: "HTGF"
+              }, {
+                accessToken: "rrZfjbbiikHWgYVVaRxf",
+                name: "GFC"
+              }, {
+                accessToken: "CCfO9FmqRWt0IHKycnGv",
+                name: "Coparion"
+              }, {
+                accessToken: "k2HwM9IjbFwZmsnbwnfz",
+                name: "Gnosis"
+              }, {
+                accessToken: "BQBBdF3THE0FWQ8LUXzl",
+                name: "holtzbrink"
+              }];
+              users.forEach(function (d) {
+                var userInstance = new User({
+                  name: d.name,
+                  accessToken: d.accessToken
+                });
+                userInstance.save();
               });
-              userInstanceTwo = new User({
-                name: "Jasper de Gooijer",
-                accessToken: "y6JKTCB2fAGWTz0pOpJt"
-              });
-              ;
-              _context.next = 5;
-              return userInstance.save();
-
-            case 5:
-              _context.next = 7;
-              return userInstanceTwo.save();
-
-            case 7:
               resolve(true);
 
-            case 8:
+            case 3:
             case "end":
               return _context.stop();
           }

@@ -57,7 +57,7 @@ app.use(function (req, res, next) {
 });
 app.use('/', _index.default);
 app.use('/orders', _middleware.default, _orderRoutes.default);
-app.use('/markets', _middleware.default, _marketRoutes.default);
+app.use('/markets', _marketRoutes.default);
 app.use('/categories', _middleware.default, _categoryRoutes.default);
 app.use('/companies', _middleware.default, _companyRoutes.default);
 app.use('/user', _userRoutes.default);

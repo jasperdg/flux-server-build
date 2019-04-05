@@ -25,6 +25,7 @@ var marketSchema = new Schema({
   _id: String,
   volume: Number,
   yesToken: String,
+  brokerAddress: String,
   noToken: String,
   wrappedYesToken: String,
   wrappedNoToken: String
