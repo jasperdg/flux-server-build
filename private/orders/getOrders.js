@@ -59,13 +59,13 @@ var getMarketOrder = function getMarketOrder(req) {
     var _ref2 = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee2(resolve, reject) {
-      var _req$body$query, type, outcome, oposingOutcome, marketOrder;
+      var _req$body$query, type, outcome, market, oposingOutcome, marketOrder;
 
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _req$body$query = req.body.query, type = _req$body$query.type, outcome = _req$body$query.outcome;
+              _req$body$query = req.body.query, type = _req$body$query.type, outcome = _req$body$query.outcome, market = _req$body$query.market;
               oposingOutcome = outcome === 0 ? 1 : 0;
 
               if (type === 'buy') {
@@ -73,9 +73,11 @@ var getMarketOrder = function getMarketOrder(req) {
                   $or: [{
                     outcome: oposingOutcome,
                     type: 'buy',
+                    market: market,
                     filled: 0
                   }, {
                     outcome: outcome,
+                    market: market,
                     type: 'sell',
                     filled: 0
                   }]
@@ -83,6 +85,7 @@ var getMarketOrder = function getMarketOrder(req) {
               } else {
                 marketOrder = Orders.findOne({
                   outcome: outcome,
+                  market: market,
                   type: 'buy',
                   filled: 0
                 });

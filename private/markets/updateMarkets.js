@@ -17,6 +17,8 @@ var _formatMarket = _interopRequireDefault(require("../utils/formatMarket"));
 
 var _market = _interopRequireDefault(require("../../mongoose/schemas/market"));
 
+var _constants = require("../../constants");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -76,33 +78,51 @@ var updateMarkets = function updateMarkets(req) {
                       while (1) {
                         switch (_context.prev = _context.next) {
                           case 0:
-                            _context.next = 2;
-                            return Markets.find({
-                              id: market._id
-                            }, '_id');
-
-                          case 2:
-                            marketExists = _context.sent;
-
-                            if (!(marketExists.length == 0)) {
-                              _context.next = 12;
+                            if (!(_constants.BLACKLIST.indexOf(market.id) == -1)) {
+                              _context.next = 19;
                               break;
                             }
 
-                            _context.next = 6;
+                            _context.next = 3;
+                            return Markets.find({
+                              _id: market.id
+                            }, '_id');
+
+                          case 3:
+                            marketExists = _context.sent;
+
+                            if (!(marketExists.length == 0)) {
+                              _context.next = 16;
+                              break;
+                            }
+
+                            _context.next = 7;
                             return (0, _getMarketOutcomes.default)(augur, market);
 
-                          case 6:
+                          case 7:
                             outcomeTokens = _context.sent;
                             formattedMarket = (0, _formatMarket.default)(market, outcomeTokens);
                             marketInstance = new Markets(formattedMarket);
-                            _context.next = 11;
+                            _context.next = 12;
                             return marketInstance.save();
 
-                          case 11:
-                            resolve(true);
-
                           case 12:
+                            console.log("marketInstanceSAved");
+                            resolve(true);
+                            _context.next = 17;
+                            break;
+
+                          case 16:
+                            resolve();
+
+                          case 17:
+                            _context.next = 20;
+                            break;
+
+                          case 19:
+                            resolve();
+
+                          case 20:
                           case "end":
                             return _context.stop();
                         }

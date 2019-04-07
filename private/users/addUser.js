@@ -31,31 +31,15 @@ var addUser = function addUser() {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              users = [{
-                accessToken: "cNOmF0ywaFgVx1tNe00V",
-                name: "ScalarVC"
-              }, {
-                accessToken: "rY4kqCXW15VWlLnJGn61",
-                name: "Fabric VC"
-              }, {
-                accessToken: "Uac5y79XRmkVRfjqCs8I",
-                name: "Cherry VC"
-              }, {
-                accessToken: "byhiJizHXIQYgOY79V3i",
-                name: "HTGF"
-              }, {
-                accessToken: "rrZfjbbiikHWgYVVaRxf",
-                name: "GFC"
-              }, {
-                accessToken: "CCfO9FmqRWt0IHKycnGv",
-                name: "Coparion"
-              }, {
-                accessToken: "k2HwM9IjbFwZmsnbwnfz",
-                name: "Gnosis"
-              }, {
-                accessToken: "BQBBdF3THE0FWQ8LUXzl",
-                name: "holtzbrink"
-              }];
+              users = [// { accessToken: "cNOmF0ywaFgVx1tNe00V",	name: "ScalarVC" },
+                // { accessToken: "rY4kqCXW15VWlLnJGn61",	name: "Fabric VC" },
+                // { accessToken: "Uac5y79XRmkVRfjqCs8I",	name: "Cherry VC" },
+                // { accessToken: "byhiJizHXIQYgOY79V3i",	name: "HTGF" },
+                // { accessToken: "rrZfjbbiikHWgYVVaRxf",	name: "GFC" },
+                // { accessToken: "CCfO9FmqRWt0IHKycnGv",	name: "Coparion" },
+                // { accessToken: "k2HwM9IjbFwZmsnbwnfz",	name: "Gnosis" },
+                // { accessToken: "BQBBdF3THE0FWQ8LUXzl",	name: "holtzbrink" },
+              ];
               users.forEach(function (d) {
                 var userInstance = new User({
                   name: d.name,

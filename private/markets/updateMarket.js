@@ -41,25 +41,24 @@ var updateMarket = function updateMarket(req) {
               market = res[0];
 
               if (!(market.wrappedYesToken === null && market.wrappedNoToken === null)) {
-                _context.next = 13;
+                _context.next = 12;
                 break;
               }
 
               market.wrappedNoToken = req.body.wrappedNoToken;
               market.wrappedYesToken = req.body.wrappedYesToken;
-              if (req.body.brokerAddress) market.brokerAddress = req.body.brokerAddress;
-              _context.next = 10;
+              _context.next = 9;
               return market.save();
 
-            case 10:
+            case 9:
               resolve(market._id, "updated");
-              _context.next = 14;
+              _context.next = 13;
               break;
 
-            case 13:
+            case 12:
               reject("wrapped tokens are already set");
 
-            case 14:
+            case 13:
             case "end":
               return _context.stop();
           }

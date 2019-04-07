@@ -30,9 +30,9 @@ var addCompany = function addCompany(req) {
           switch (_context.prev = _context.next) {
             case 0:
               marketInstance = new Market({
-                iconImg: "we-company-logo.png",
-                name: "We Company",
-                description: "Shared office provider and real-estate company"
+                iconImg: "spacex-logo.png",
+                name: "SpaceX",
+                description: "Space Exploration Technologies Corp., doing business as SpaceX, is a private American aerospace manufacturer and space transportation services company headquartered in Hawthorne, California. It was founded in 2002 by entrepreneur Elon Musk with the goal of reducing space transportation costs and enabling the colonization of Mars.[9][10][11] SpaceX has since developed the Falcon launch vehicle family and the Dragon spacecraft family, which both currently deliver payloads into Earth orbit."
               });
               _context.next = 3;
               return marketInstance.save();

@@ -25,7 +25,7 @@ function () {
               var payload = {
                 _outcome: outcome.id,
                 tx: {
-                  to: market._id
+                  to: market.id
                 }
               };
               var outcomeTokenPromise = augur.getShareToken(payload);
