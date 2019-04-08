@@ -38,7 +38,7 @@ var auth = function auth(req) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!accessToken) {
-                _context.next = 20;
+                _context.next = 21;
                 break;
               }
 
@@ -49,21 +49,22 @@ var auth = function auth(req) {
               _ref2 = _context.sent;
               isValid = _ref2.isValid;
               matchingAccessToken = _ref2.matchingAccessToken;
+              console.log(isValid);
 
               if (!isValid) {
-                _context.next = 17;
+                _context.next = 18;
                 break;
               }
 
               token = _jsonwebtoken.default.sign({}, _pvt.SECRET, {
                 expiresIn: "12h"
               });
-              _context.next = 10;
+              _context.next = 11;
               return User.find({
                 accessToken: matchingAccessToken
               });
 
-            case 10:
+            case 11:
               userInstance = _context.sent;
               userInstance[0].logins.push({
                 date: new Date(),
@@ -72,20 +73,20 @@ var auth = function auth(req) {
               userInstance[0].save();
               console.log('doing this');
               resolve(token);
-              _context.next = 18;
+              _context.next = 19;
               break;
-
-            case 17:
-              resolve(false);
 
             case 18:
-              _context.next = 21;
-              break;
-
-            case 20:
               resolve(false);
 
+            case 19:
+              _context.next = 22;
+              break;
+
             case 21:
+              resolve(false);
+
+            case 22:
             case "end":
               return _context.stop();
           }

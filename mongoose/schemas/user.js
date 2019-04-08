@@ -66,10 +66,11 @@ userSchema.methods.isCorrectAccessToken = function (givenAccessToken) {
                       switch (_context.prev = _context.next) {
                         case 0:
                           accessToken = _ref2.accessToken;
-                          _context.next = 3;
+                          console.log(accessToken);
+                          _context.next = 4;
                           return _bcrypt.default.compare(givenAccessToken, accessToken);
 
-                        case 3:
+                        case 4:
                           equal = _context.sent;
 
                           if (equal) {
@@ -77,7 +78,7 @@ userSchema.methods.isCorrectAccessToken = function (givenAccessToken) {
                             matchingAccessToken = accessToken;
                           }
 
-                        case 5:
+                        case 6:
                         case "end":
                           return _context.stop();
                       }
