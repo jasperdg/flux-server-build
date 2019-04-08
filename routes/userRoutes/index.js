@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
     "res": "User path"
   });
 });
-router.get('/add',
+router.get('/add', _middleware.default,
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
